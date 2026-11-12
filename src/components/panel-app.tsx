@@ -50,6 +50,11 @@ export function PanelApp() {
     aplicar(semilla(), 'Datos de ejemplo restablecidos desde hoy.');
   }
 
+  function empezarDeCero() {
+    if (!confirm('¿Borrar todas las reservas de ejemplo y empezar con datos reales? Se quedan las próximas sesiones, vacías. No se puede deshacer.')) return;
+    aplicar({ ...d!, sesiones: d!.sesiones.filter(esFutura), reservas: [] }, 'Listo: se borraron las reservas de ejemplo. Las sesiones quedan vacías para reservas reales.');
+  }
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
       <p className="text-sm font-medium uppercase tracking-widest text-glaze">Solo para el equipo</p>
@@ -92,6 +97,10 @@ export function PanelApp() {
       </Seccion>
 
       <Seccion titulo="Datos de ejemplo">
+        <p className="mb-3 text-sm text-ink/70">Para empezar a usar el taller de verdad, borrá las reservas de ejemplo. Las próximas sesiones se mantienen, sin nadie anotado.</p>
+        <button className="mb-3 mr-3 rounded-lg bg-brand px-5 py-3 font-medium text-paper hover:opacity-90" onClick={empezarDeCero} type="button">
+          Borrar ejemplos y empezar con datos reales
+        </button>
         <button className="rounded-lg border border-brand px-5 py-3 font-medium text-brand hover:bg-accent/30" onClick={restablecer} type="button">
           Restablecer datos de ejemplo
         </button>

@@ -41,7 +41,7 @@ export async function SiteHeader() {
     <header className="sticky top-0 z-10 border-b border-ink/20 bg-paper/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
-          className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight"
+          className="flex items-center gap-2.5 font-display text-2xl font-bold tracking-tight text-brand sm:text-3xl"
           href="/"
         >
           {/* the user's logo (`logo` in src/lib/site.ts); a logo that already spells the name: drop the text */}
