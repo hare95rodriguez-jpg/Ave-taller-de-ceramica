@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { MobileMenu } from '@/components/mobile-menu';
 import { SignOutButton } from '@/components/sign-out-button';
 import { currentSession } from '@/lib/auth';
 import { hasShell, site } from '@/lib/site';
@@ -48,7 +49,7 @@ export async function SiteHeader() {
           {site.name}
         </Link>
         <nav className="hidden items-center gap-1 md:flex">{items}</nav>
-        <details className="relative md:hidden">
+        <MobileMenu>
           <summary
             aria-label="Menu"
             className="cursor-pointer list-none rounded-md p-2 text-zinc-700 hover:bg-zinc-100 [&::-webkit-details-marker]:hidden"
@@ -67,7 +68,7 @@ export async function SiteHeader() {
           <nav className="absolute right-0 mt-2 grid w-56 gap-1 rounded-xl border border-zinc-200 bg-white p-2 shadow-lg">
             {items}
           </nav>
-        </details>
+        </MobileMenu>
       </div>
     </header>
   );
