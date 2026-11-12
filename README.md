@@ -15,10 +15,9 @@
 2. `/panel`: mira quién viene, anula una reserva (libera el lugar), agrega una sesión (miércoles o sábado) y prueba «Restablecer datos de ejemplo».
 
 ## Pasar de los ejemplos a datos reales
-1. Entra a `/panel`, baja a «Datos de ejemplo» y toca «Borrar ejemplos y empezar con datos reales». Se borran todas las reservas de ejemplo y las sesiones pasadas; las próximas sesiones quedan vacías.
-2. Si hacen falta más fechas, agregalas en «Agregar sesión» (miércoles o sábado).
-3. Cada navegador guarda sus propios datos: hacelo en el navegador donde se va a gestionar el taller.
-4. Opcional: «Restablecer datos de ejemplo» vuelve a cargar los ejemplos (solo para demostraciones). Para quitar ese botón del todo, borra la sección «Datos de ejemplo» de `src/components/panel-app.tsx`.
+1. Si hacen falta más fechas, agregalas en «Agregar sesión» (miércoles o sábado).
+2. Cada navegador guarda sus propios datos: hacelo en el navegador donde se va a gestionar el taller.
+3. Opcional: «Restablecer datos de ejemplo» vuelve a cargar los ejemplos (solo para demostraciones). Para quitar ese botón del todo, borra la sección «Datos de ejemplo» de `src/components/panel-app.tsx`.
 
 ## Código de acceso al panel
 1. El código inicial es `AVE-2026`. **Cámbialo antes de entregar la app.**
