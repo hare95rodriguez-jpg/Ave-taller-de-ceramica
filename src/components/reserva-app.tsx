@@ -19,6 +19,7 @@ export function ReservaApp() {
   const [error, setError] = useState('');
   const [aviso, setAviso] = useState('');
   const [hecha, setHecha] = useState<Reserva | null>(null);
+  const [verWa, setVerWa] = useState(false);
 
   useEffect(() => setDatos(cargar()), []);
 
@@ -64,14 +65,13 @@ export function ReservaApp() {
         </div>
         <p className="mt-4 text-ink/75">Código de reserva: <strong className="font-mono text-ink">{codigo}</strong></p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <a
+          <button
             className="rounded-lg bg-glaze px-6 py-3 text-center font-medium text-paper hover:opacity-90"
-            href={`https://wa.me/?text=${encodeURIComponent(textoWa)}`}
-            rel="noopener noreferrer"
-            target="_blank"
+            onClick={() => setVerWa(true)}
+            type="button"
           >
             Compartir por WhatsApp
-          </a>
+          </button>
           <button className="rounded-lg bg-brand px-6 py-3 font-medium text-paper hover:opacity-90" onClick={() => descargarIcs(datos, hecha)} type="button">
             Descargar .ics
           </button>
@@ -83,6 +83,33 @@ export function ReservaApp() {
             Hacer otra reserva
           </button>
         </div>
+        {verWa && (
+          <div
+            className="fixed inset-0 z-50 flex items-end justify-center bg-ink/60 p-4 sm:items-center"
+            onClick={() => setVerWa(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Vista previa del mensaje de WhatsApp"
+          >
+            <div className="w-full max-w-sm overflow-hidden rounded-2xl bg-paper shadow-xl" onClick={(e) => e.stopPropagation()}>
+              <div className="bg-glaze px-4 py-3 text-paper">
+                <p className="font-medium">WhatsApp · Vista previa</p>
+                <p className="text-xs opacity-80">Así se vería el mensaje al compartirlo</p>
+              </div>
+              <div className="bg-accent/40 p-4">
+                <div className="ml-auto max-w-[90%] whitespace-pre-line rounded-lg rounded-tr-none bg-white px-3 py-2 text-sm text-ink shadow">
+                  {textoWa}
+                </div>
+              </div>
+              <div className="p-4">
+                <p className="mb-3 text-xs text-ink/60">Es un prototipo: todavía no se envía nada a WhatsApp.</p>
+                <button className="w-full rounded-lg bg-brand px-6 py-3 font-medium text-paper hover:opacity-90" onClick={() => setVerWa(false)} type="button">
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     );
   }

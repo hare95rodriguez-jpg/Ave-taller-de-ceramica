@@ -25,3 +25,10 @@
 2. Para cambiarlo, abre `src/lib/acceso.ts` y edita el texto entre comillas de `CODIGO_PANEL`.
 3. Al abrir `/panel` se pide el código; con «Cerrar el panel» se vuelve a bloquear. El acceso dura mientras la pestaña esté abierta.
 4. Aviso: el código viaja dentro de la página, así que frena a curiosos pero no a alguien con conocimientos técnicos. Para protección real hace falta una cuenta con contraseña en un servidor.
+
+## Botón «Compartir por WhatsApp» (prototipo)
+Ahora el botón de la confirmación solo abre una ventana con la vista previa del mensaje; no envía nada. Para conectarlo de verdad:
+1. Abre `src/components/reserva-app.tsx` y busca el botón «Compartir por WhatsApp» (`onClick={() => setVerWa(true)}`) y la ventana `verWa &&` justo debajo.
+2. Opción simple (el cliente comparte el mensaje): cambia el botón por un enlace `<a href={`https://wa.me/?text=${encodeURIComponent(textoWa)}`} target="_blank" rel="noopener noreferrer">`. Para que llegue directo al taller usa `https://wa.me/52NÚMERO?text=...` (código de país 52 + 10 dígitos, sin espacios ni signos).
+3. Opción automática (que el taller envíe la confirmación sin que el cliente haga nada): hace falta la API de WhatsApp Business (Meta Cloud API o un proveedor como Twilio). Se llama desde un servidor con tu clave, nunca desde el navegador, y requiere plantillas de mensaje aprobadas.
+4. Cuando lo conectes, borra la ventana de vista previa y el estado `verWa`.
