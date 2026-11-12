@@ -21,7 +21,7 @@ const OFFSET_H = 6; // México no usa horario de verano: siempre UTC-6
 export const MODALIDADES: { id: ModalidadId; nombre: string; fechas: number; precio: number; texto: string }[] = [
   { id: 'suelta', nombre: 'Clase suelta', fechas: 1, precio: 600, texto: 'Una fecha, para quienes ya vienen al taller.' },
   { id: 'experiencia', nombre: 'Experiencia de un día', fechas: 1, precio: 700, texto: 'Una fecha, pensada para probar el barro por primera vez.' },
-  { id: 'paquete', nombre: 'Paquete de 3 clases', fechas: 3, precio: 1500, texto: 'Tres fechas distintas que elegís ahora.' },
+  { id: 'paquete', nombre: 'Paquete de 3 clases', fechas: 3, precio: 1500, texto: 'Tres fechas distintas que eliges ahora.' },
 ];
 
 export const dinero = (n: number) =>
@@ -131,14 +131,14 @@ export function reservar(
   const m = MODALIDADES.find((z) => z.id === x.modalidad)!;
   const nombre = x.nombre.trim();
   const contacto = x.contacto.trim();
-  if (nombre.length < 2) return { ok: false, error: 'Escribí tu nombre.' };
+  if (nombre.length < 2) return { ok: false, error: 'Escribe tu nombre.' };
   if (!contacto) return { ok: false, error: 'Dejanos un correo o un teléfono.' };
   if (!contactoValido(contacto)) return { ok: false, error: 'El contacto tiene que ser un correo válido o un teléfono de al menos 8 dígitos.' };
-  if (new Set(x.sesiones).size !== m.fechas) return { ok: false, error: `Marcá ${m.fechas === 1 ? '1 fecha' : `${m.fechas} fechas distintas`}.` };
+  if (new Set(x.sesiones).size !== m.fechas) return { ok: false, error: `Marca ${m.fechas === 1 ? '1 fecha' : `${m.fechas} fechas distintas`}.` };
   for (const id of x.sesiones) {
     const s = base.sesiones.find((z) => z.id === id);
-    if (!s || !esFutura(s)) return { ok: false, error: 'Una de las fechas ya no está disponible. Elegí otra.' };
-    if (libres(base, s) <= 0) return { ok: false, error: `La fecha del ${fechaLarga(s.fecha)} se quedó sin lugar. Elegí otra.` };
+    if (!s || !esFutura(s)) return { ok: false, error: 'Una de las fechas ya no está disponible. Elige otra.' };
+    if (libres(base, s) <= 0) return { ok: false, error: `La fecha del ${fechaLarga(s.fecha)} se quedó sin lugar. Elige otra.` };
     const dup = base.reservas.some(
       (r) => r.estado === 'activa' && r.sesiones.includes(id) && r.contacto.toLowerCase() === contacto.toLowerCase(),
     );

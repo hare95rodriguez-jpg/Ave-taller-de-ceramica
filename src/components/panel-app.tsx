@@ -37,12 +37,12 @@ function PanelContenido() {
   }
   function agregar(e: React.FormEvent) {
     e.preventDefault();
-    if (!fecha) return setMsg({ ok: false, t: 'Elegí una fecha.' });
+    if (!fecha) return setMsg({ ok: false, t: 'Elige una fecha.' });
     const dw = diaSemana(fecha);
     if (dw !== 3 && dw !== 6) return setMsg({ ok: false, t: 'Solo se pueden agregar miércoles o sábados.' });
     if (d!.sesiones.some((s) => s.fecha === fecha)) return setMsg({ ok: false, t: 'Esa fecha ya existe.' });
     const s = crearSesion(fecha);
-    if (!esFutura(s)) return setMsg({ ok: false, t: 'Elegí una fecha futura.' });
+    if (!esFutura(s)) return setMsg({ ok: false, t: 'Elige una fecha futura.' });
     aplicar({ ...d!, sesiones: [...d!.sesiones, s] }, `Sesión agregada: ${fechaLarga(fecha)}, ${s.inicio} a ${s.fin} h, 8 lugares.`);
     setFecha('');
   }
@@ -83,7 +83,7 @@ function PanelContenido() {
             </button>
           ))}
         </div>
-        {lista.length === 0 ? <Vacio t={pasadas ? 'Todavía no hay sesiones pasadas.' : 'No hay sesiones próximas. Agregá una abajo.'} /> : lista.map((s) => <Sesion key={s.id} s={s} d={d} a={asist(s)} nombreMod={nombreMod} anular={anular} />)}
+        {lista.length === 0 ? <Vacio t={pasadas ? 'Aún no hay sesiones pasadas.' : 'No hay sesiones próximas. Agrega una abajo.'} /> : lista.map((s) => <Sesion key={s.id} s={s} d={d} a={asist(s)} nombreMod={nombreMod} anular={anular} />)}
       </Seccion>
 
       <Seccion titulo="Agregar sesión">
@@ -98,7 +98,7 @@ function PanelContenido() {
       </Seccion>
 
       <Seccion titulo="Datos de ejemplo">
-        <p className="mb-3 text-sm text-ink/70">Para empezar a usar el taller de verdad, borrá las reservas de ejemplo. Las próximas sesiones se mantienen, sin nadie anotado.</p>
+        <p className="mb-3 text-sm text-ink/70">Para empezar a usar el taller de verdad, borra las reservas de ejemplo. Las próximas sesiones se mantienen, sin nadie registrado.</p>
         <button className="mb-3 mr-3 rounded-lg bg-brand px-5 py-3 font-medium text-paper hover:opacity-90" onClick={empezarDeCero} type="button">
           Borrar ejemplos y empezar con datos reales
         </button>

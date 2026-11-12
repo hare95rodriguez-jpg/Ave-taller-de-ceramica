@@ -1,7 +1,7 @@
 // The app's name and header links, in one place: the header, the footer and every page title read them.
 export const site = {
   name: 'AVE Taller',
-  description: 'Reservá tu lugar en el taller libre de cerámica: miércoles por la tarde y sábados por la mañana.',
+  description: 'Reserva tu lugar en el taller libre de cerámica: miércoles por la tarde y sábados por la mañana.',
   /** The logo image's URL (the user's file): the header, the footer and the browser icon show it. Empty: the name alone. */
   logo: '',
   /**

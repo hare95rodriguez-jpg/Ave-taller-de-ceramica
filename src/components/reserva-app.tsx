@@ -76,7 +76,7 @@ export function ReservaApp() {
     setError('');
     if (sel.includes(id)) { setSel(sel.filter((x) => x !== id)); setAviso(''); return; }
     if (m.fechas === 1) { setSel([id]); return; }
-    if (sel.length >= m.fechas) { setAviso('Ya marcaste 3 fechas. Desmarcá una para cambiarla.'); return; }
+    if (sel.length >= m.fechas) { setAviso('Ya marcaste 3 fechas. Desmarca una para cambiarla.'); return; }
     setAviso(''); setSel([...sel, id]);
   }
   function enviar(e: React.FormEvent) {
@@ -84,7 +84,7 @@ export function ReservaApp() {
     const base = leer() ?? datos!;
     const r = reservar(base, { nombre, contacto, modalidad: mod, sesiones: sel });
     if (!r.ok) { setError(r.error); setDatos(base); setSel(sel.filter((id) => { const s = base.sesiones.find((z) => z.id === id); return s && libres(base, s) > 0; })); return; }
-    if (!guardar(r.datos)) { setError('No pudimos guardar la reserva en este navegador. Revisá que no esté en modo privado.'); return; }
+    if (!guardar(r.datos)) { setError('No pudimos guardar la reserva en este navegador. Revisa que no esté en modo privado.'); return; }
     setDatos(r.datos); setHecha(r.reserva);
     window.scrollTo({ top: 0 });
   }
@@ -94,16 +94,16 @@ export function ReservaApp() {
       <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-10 pt-10 sm:px-6 md:grid-cols-[1.4fr_1fr] md:pt-16">
         <div>
           <p className="text-sm font-medium uppercase tracking-widest text-glaze">Miércoles por la tarde · Sábados por la mañana</p>
-          <h1 className="mt-3 font-display text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">Meté las manos en el barro.</h1>
+          <h1 className="mt-3 font-display text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">Mete las manos en el barro.</h1>
           <p className="mt-5 max-w-xl text-lg text-ink/75">
-            Un taller libre de cerámica en una casona del centro. No hace falta saber nada: elegí tu modalidad, marcá tus fechas y mirá al instante si hay lugar. Materiales incluidos.
+            Un taller libre de cerámica en una casona del centro. No hace falta saber nada: elige tu modalidad, marca tus fechas y mira al instante si hay lugar. Materiales incluidos.
           </p>
         </div>
         <Vasija />
       </section>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Paso n={1} titulo="Elegí tu modalidad" />
+        <Paso n={1} titulo="Elige tu modalidad" />
         <div className="grid gap-3 md:grid-cols-3">
           {MODALIDADES.map((x) => {
             const off = x.id === 'paquete' && !paqueteOk;
@@ -126,9 +126,9 @@ export function ReservaApp() {
           })}
         </div>
 
-        <Paso n={2} titulo={m.fechas === 1 ? 'Marcá tu fecha' : 'Marcá tus 3 fechas'} />
+        <Paso n={2} titulo={m.fechas === 1 ? 'Marca tu fecha' : 'Marca tus 3 fechas'} />
         {lista.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-ink/30 p-8 text-center text-ink/70">Por ahora no hay sesiones próximas. Volvé pronto: el taller agrega fechas seguido.</p>
+          <p className="rounded-xl border border-dashed border-ink/30 p-8 text-center text-ink/70">Por ahora no hay sesiones próximas. Vuelve pronto: el taller agrega fechas seguido.</p>
         ) : (
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {lista.map((s) => {
@@ -171,7 +171,7 @@ export function ReservaApp() {
             <p className="text-sm text-ink/70">Sin pagos en línea: el total ({dinero(m.precio)}) se abona en el taller.</p>
             {error ? <p className="rounded-lg border border-brand/40 bg-brand/10 px-4 py-3 text-sm font-medium text-brand" role="alert">{error}</p> : null}
             <button className="rounded-lg bg-brand px-6 py-3.5 text-base font-medium text-paper hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50" disabled={!completo} type="submit">
-              {completo ? `Reservar · ${dinero(m.precio)}` : `Marcá ${m.fechas - sel.length} ${m.fechas - sel.length === 1 ? 'fecha' : 'fechas'} para reservar`}
+              {completo ? `Reservar · ${dinero(m.precio)}` : `Marca ${m.fechas - sel.length} ${m.fechas - sel.length === 1 ? 'fecha' : 'fechas'} para reservar`}
             </button>
           </form>
         </div>
