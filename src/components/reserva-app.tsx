@@ -33,6 +33,15 @@ export function ReservaApp() {
   if (hecha) {
     const ses = hecha.sesiones.map((id) => datos.sesiones.find((s) => s.id === id)!).filter(Boolean);
     const mm = MODALIDADES.find((x) => x.id === hecha.modalidad)!;
+    const codigo = hecha.id.slice(-6).toUpperCase();
+    const textoWa = [
+      '¡Reservé en AVE Taller! 🏺',
+      `Modalidad: ${mm.nombre}`,
+      'Fechas:',
+      ...ses.map((s) => `• ${fechaLarga(s.fecha)}, ${s.inicio} a ${s.fin} h`),
+      `Total a abonar en el taller: ${dinero(hecha.total)}`,
+      `Código de reserva: ${codigo}`,
+    ].join('\n');
     return (
       <section className="mx-auto max-w-2xl px-4 py-12 sm:py-16">
         <p className="text-sm font-medium uppercase tracking-widest text-glaze">Reserva confirmada</p>
@@ -53,7 +62,16 @@ export function ReservaApp() {
             <strong className="font-display text-3xl text-brand">{dinero(hecha.total)}</strong>
           </p>
         </div>
+        <p className="mt-4 text-ink/75">Código de reserva: <strong className="font-mono text-ink">{codigo}</strong></p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <a
+            className="rounded-lg bg-glaze px-6 py-3 text-center font-medium text-paper hover:opacity-90"
+            href={`https://wa.me/?text=${encodeURIComponent(textoWa)}`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Compartir por WhatsApp
+          </a>
           <button className="rounded-lg bg-brand px-6 py-3 font-medium text-paper hover:opacity-90" onClick={() => descargarIcs(datos, hecha)} type="button">
             Descargar .ics
           </button>
