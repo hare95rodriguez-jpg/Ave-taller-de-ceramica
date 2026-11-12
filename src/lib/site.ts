@@ -1,7 +1,7 @@
 // The app's name and header links, in one place: the header, the footer and every page title read them.
 export const site = {
-  name: 'New Totalum app',
-  description: 'Built with Totalum',
+  name: 'AVE Taller',
+  description: 'Reservá tu lugar en el taller libre de cerámica: miércoles por la tarde y sábados por la mañana.',
   /** The logo image's URL (the user's file): the header, the footer and the browser icon show it. Empty: the name alone. */
   logo: '',
   /**
@@ -28,7 +28,7 @@ export const site = {
   /** The owner's and staff's addresses for admin pages: one counts only once its account verified the e-mail (`isAdmin`, `@/lib/admin`). */
   admins: [] as string[],
   /** Links everyone sees (landing sections, public pages). */
-  nav: [] as { href: string; label: string }[],
+  nav: [{ href: '/', label: 'Reservar' }, { href: '/panel', label: 'Panel del taller' }] as { href: string; label: string }[],
   /** Links only signed-in users see (dashboard, lists, admin). */
   appNav: [{ href: '/account', label: 'Account' }] as { href: string; label: string }[],
 };

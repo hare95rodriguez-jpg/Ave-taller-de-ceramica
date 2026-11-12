@@ -2,8 +2,11 @@
 
 /* The project's design tokens (colours, radius): see _system-docs/design.md. */
 @theme {
-  --color-brand: oklch(0.55 0.2 260);
-  --color-accent: oklch(0.75 0.15 70);
+  --color-brand: #8c4a2f;
+  --color-accent: #e8c39e;
+  --color-glaze: #2f6b5e;
+  --color-paper: #faf3e8;
+  --color-ink: #2e2420;
 }
 
 /*

@@ -4,7 +4,7 @@ import { hasShell, site } from '@/lib/site';
 export function SiteFooter() {
   if (!hasShell()) return null;
   return (
-    <footer className="border-t border-zinc-200 py-10 text-sm text-zinc-600">
+    <footer className="border-t border-ink/20 py-10 text-sm text-ink/70">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 sm:px-6">
         <p className="flex items-center gap-3">
           {site.logo ? <img alt="" className="h-7 w-auto" src={site.logo} /> : null}©{' '}

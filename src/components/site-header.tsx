@@ -4,7 +4,7 @@ import { SignOutButton } from '@/components/sign-out-button';
 import { currentSession } from '@/lib/auth';
 import { hasShell, site } from '@/lib/site';
 
-const link = 'rounded-md px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900';
+const link = 'rounded-md px-3 py-2 text-sm font-medium text-ink/70 transition-colors hover:text-brand';
 
 // The header every route shares (rendered by layout.tsx): edit the links in `src/lib/site.ts`, restyle it here.
 // Nothing until the app has links or accounts, so a one-page app shows only what was asked for.
@@ -37,7 +37,7 @@ export async function SiteHeader() {
     </>
   );
   return (
-    <header className="sticky top-0 z-10 border-b border-zinc-200 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-10 border-b border-ink/20 bg-paper/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
         <Link
           className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight"

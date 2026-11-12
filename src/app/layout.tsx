@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Lora, Work_Sans } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 import { DevBanner } from '@/components/dev-banner';
@@ -24,12 +25,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 // Fonts (design.md §1): `const heading = <Face>({ subsets: ['latin'], variable: '--font-heading' })` from
 // `next/font/google` (and `--font-body`), then both `.variable` classes in the <html> className below.
-const fonts = '';
+const heading = Lora({ subsets: ['latin'], variable: '--font-heading' });
+const body = Work_Sans({ subsets: ['latin'], variable: '--font-body' });
+const fonts = `${heading.variable} ${body.variable}`;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html className={fonts} lang="en">
-      <body className="flex min-h-dvh flex-col bg-white font-sans text-zinc-900 antialiased">
+    <html className={fonts} lang="es">
+      <body className="flex min-h-dvh flex-col bg-paper font-sans text-ink antialiased">
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />
