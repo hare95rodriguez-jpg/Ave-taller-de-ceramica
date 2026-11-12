@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { CLAVE_ACCESO, CODIGO_PANEL } from '@/lib/acceso';
 import {
   MODALIDADES, cargar, crearSesion, diaSemana, dinero, esFutura, fechaLarga, guardar, hoyMx, inicioMs, libres, semilla,
   type Datos, type Sesion,
@@ -9,7 +10,7 @@ import {
 
 const campo = 'rounded-lg border border-ink/25 bg-white px-4 py-3 text-base focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30';
 
-export function PanelApp() {
+function PanelContenido() {
   const [d, setD] = useState<Datos | null>(null);
   const [pasadas, setPasadas] = useState(false);
   const [fecha, setFecha] = useState('');
@@ -149,5 +150,52 @@ function Sesion({ s, d, a, nombreMod, anular }: { s: Sesion; d: Datos; a: Datos[
         </ul>
       )}
     </article>
+  );
+}
+
+export function PanelApp() {
+  const [ok, setOk] = useState<boolean | null>(null);
+  const [codigo, setCodigo] = useState('');
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    try { setOk(sessionStorage.getItem(CLAVE_ACCESO) === '1'); } catch { setOk(false); }
+  }, []);
+
+  function entrar(e: React.FormEvent) {
+    e.preventDefault();
+    if (codigo.trim() !== CODIGO_PANEL) { setError(true); return; }
+    try { sessionStorage.setItem(CLAVE_ACCESO, '1'); } catch {}
+    setOk(true);
+  }
+  function salir() {
+    try { sessionStorage.removeItem(CLAVE_ACCESO); } catch {}
+    setOk(false); setCodigo('');
+  }
+
+  if (ok === null) return <p className="px-4 py-16 text-center text-ink/60">Cargando…</p>;
+  if (!ok) {
+    return (
+      <div className="mx-auto max-w-md px-4 py-16">
+        <p className="text-sm font-medium uppercase tracking-widest text-glaze">Solo para el equipo</p>
+        <h1 className="mt-2 font-display text-4xl">Panel del taller</h1>
+        <form className="mt-6 grid gap-3" onSubmit={entrar}>
+          <label className="grid gap-1.5 text-sm font-medium">
+            Código de acceso
+            <input autoComplete="off" className={campo} onChange={(e) => { setCodigo(e.target.value); setError(false); }} type="password" value={codigo} />
+          </label>
+          {error ? <p className="text-sm font-medium text-brand" role="alert">El código no es correcto.</p> : null}
+          <button className="rounded-lg bg-brand px-6 py-3 font-medium text-paper hover:opacity-90" type="submit">Entrar</button>
+        </form>
+      </div>
+    );
+  }
+  return (
+    <>
+      <div className="mx-auto flex max-w-5xl justify-end px-4 pt-4 sm:px-6">
+        <button className="text-sm font-medium text-brand underline" onClick={salir} type="button">Cerrar el panel</button>
+      </div>
+      <PanelContenido />
+    </>
   );
 }
