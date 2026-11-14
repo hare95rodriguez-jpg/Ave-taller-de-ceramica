@@ -1,5 +1,15 @@
 # AVE Taller · Reserva de sesiones de cerámica
 
+## Cómo levantar el proyecto en tu computadora
+1. Instala [Node.js](https://nodejs.org) (versión 20 o superior) y Git.
+2. Descarga el proyecto: `git clone https://github.com/hare95rodriguez-jpg/Ave-taller-de-ceramica.git` y entra a la carpeta: `cd Ave-taller-de-ceramica`.
+3. Instala las dependencias: `npm install`.
+4. Arranca el proyecto: `npm run dev`.
+5. Abre `http://localhost:3100` (reservas) y `http://localhost:3100/panel` (panel, código inicial `AVE-2026`).
+
+Para detenerlo, pulsa `Ctrl + C` en la terminal. Para probar la versión de producción: `npm run build` y luego `npm run start`.
+Los datos viven en el navegador (`localStorage`), así que cada navegador o computadora empieza con sus propios datos de ejemplo.
+
 ## Qué está simulado
 - **Persistencia:** sesiones y reservas se guardan en el `localStorage` del navegador (clave `ave-taller-v1`). La semilla (próximas 8 sesiones y 16 reservas) se carga solo si no hay nada guardado; se calcula desde la fecha de hoy en hora de México.
 - **Panel (`/panel`):** protegido con un código de acceso que solo debe conocer el propietario. Es una protección básica en el navegador (no es seguridad real).
@@ -11,8 +21,8 @@
 - Autenticación real del panel (cuenta del propietario con contraseña verificada en el servidor).
 
 ## Cómo probar
-1. `/`: elige modalidad, marca fechas (1, o 3 distintas en el paquete), completa nombre y contacto y reserva; descarga el .ics.
-2. `/panel`: mira quién viene, anula una reserva (libera el lugar), agrega una sesión (miércoles o sábado) y prueba «Restablecer datos de ejemplo».
+1. `/`: elige modalidad, marca fechas (1, o 3 distintas en el paquete), completa nombre, contacto, si es tu primera vez en cerámica (sí o no, obligatorio) y un comentario opcional, y reserva; descarga el .ics.
+2. `/panel`: mira quién viene (con su contacto, si es primera vez y su comentario), anula una reserva (libera el lugar), agrega una sesión (miércoles o sábado) y prueba «Restablecer datos de ejemplo».
 
 ## Pasar de los ejemplos a datos reales
 1. Si hacen falta más fechas, agregalas en «Agregar sesión» (miércoles o sábado).
