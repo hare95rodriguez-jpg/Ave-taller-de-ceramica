@@ -5,6 +5,8 @@ export type Reserva = {
   id: string;
   nombre: string;
   contacto: string;
+  primeraVez?: boolean;
+  comentario?: string;
   modalidad: ModalidadId;
   sesiones: string[];
   total: number;
@@ -126,11 +128,12 @@ export const contactoValido = (c: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.tes
 /** Valida y crea una reserva sobre los datos más recientes. */
 export function reservar(
   base: Datos,
-  x: { nombre: string; contacto: string; modalidad: ModalidadId; sesiones: string[] },
+  x: { nombre: string; contacto: string; primeraVez: boolean | null; comentario?: string; modalidad: ModalidadId; sesiones: string[] },
 ): { ok: true; datos: Datos; reserva: Reserva } | { ok: false; error: string } {
   const m = MODALIDADES.find((z) => z.id === x.modalidad)!;
   const nombre = x.nombre.trim();
   const contacto = x.contacto.trim();
+  if (x.primeraVez === null) return { ok: false, error: 'Cuéntanos si es tu primera vez en cerámica (sí o no).' };
   if (nombre.length < 2) return { ok: false, error: 'Escribe tu nombre.' };
   if (!contacto) return { ok: false, error: 'Dejanos un correo o un teléfono.' };
   if (!contactoValido(contacto)) return { ok: false, error: 'El contacto tiene que ser un correo válido o un teléfono de al menos 8 dígitos.' };
@@ -148,6 +151,8 @@ export function reservar(
     id: `r-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`,
     nombre,
     contacto,
+    primeraVez: x.primeraVez,
+    comentario: x.comentario?.trim().slice(0, 500) || undefined,
     modalidad: x.modalidad,
     sesiones: [...x.sesiones],
     total: m.precio,

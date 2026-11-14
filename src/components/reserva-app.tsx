@@ -16,6 +16,8 @@ export function ReservaApp() {
   const [sel, setSel] = useState<string[]>([]);
   const [nombre, setNombre] = useState('');
   const [contacto, setContacto] = useState('');
+  const [primeraVez, setPrimeraVez] = useState<boolean | null>(null);
+  const [comentario, setComentario] = useState('');
   const [error, setError] = useState('');
   const [aviso, setAviso] = useState('');
   const [hecha, setHecha] = useState<Reserva | null>(null);
@@ -127,7 +129,7 @@ export function ReservaApp() {
   function enviar(e: React.FormEvent) {
     e.preventDefault();
     const base = leer() ?? datos!;
-    const r = reservar(base, { nombre, contacto, modalidad: mod, sesiones: sel });
+    const r = reservar(base, { nombre, contacto, primeraVez, comentario, modalidad: mod, sesiones: sel });
     if (!r.ok) { setError(r.error); setDatos(base); setSel(sel.filter((id) => { const s = base.sesiones.find((z) => z.id === id); return s && libres(base, s) > 0; })); return; }
     if (!guardar(r.datos)) { setError('No pudimos guardar la reserva en este navegador. Revisa que no esté en modo privado.'); return; }
     setDatos(r.datos); setHecha(r.reserva);
@@ -212,6 +214,21 @@ export function ReservaApp() {
             <label className="grid gap-1.5 text-sm font-medium">
               Correo o teléfono
               <input autoComplete="email" className={campo} onChange={(e) => setContacto(e.target.value)} placeholder="tucorreo@ejemplo.com o 55 1234 5678" value={contacto} />
+            </label>
+            <fieldset className="grid gap-1.5 text-sm font-medium">
+              <legend className="mb-1.5">¿Es tu primera vez en cerámica?</legend>
+              <div className="flex gap-3">
+                {([[true, 'Sí'], [false, 'No']] as const).map(([v, t]) => (
+                  <label className="flex items-center gap-2 font-normal" key={t}>
+                    <input checked={primeraVez === v} name="primeraVez" onChange={() => setPrimeraVez(v)} type="radio" />
+                    {t}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <label className="grid gap-1.5 text-sm font-medium">
+              Comentario (opcional)
+              <textarea className={campo} maxLength={500} onChange={(e) => setComentario(e.target.value)} placeholder="Alergias, ideas, algo que quieras contarnos…" rows={3} value={comentario} />
             </label>
             <p className="text-sm text-ink/70">Sin pagos en línea: el total ({dinero(m.precio)}) se abona en el taller.</p>
             {error ? <p className="rounded-lg border border-brand/40 bg-brand/10 px-4 py-3 text-sm font-medium text-brand" role="alert">{error}</p> : null}

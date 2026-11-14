@@ -11,8 +11,8 @@
 - Autenticación real del panel (cuenta del propietario con contraseña verificada en el servidor).
 
 ## Cómo probar
-1. `/`: elige modalidad, marca fechas (1, o 3 distintas en el paquete), completa nombre y contacto y reserva; descarga el .ics.
-2. `/panel`: mira quién viene, anula una reserva (libera el lugar), agrega una sesión (miércoles o sábado) y prueba «Restablecer datos de ejemplo».
+1. `/`: elige modalidad, marca fechas (1, o 3 distintas en el paquete), completa nombre, contacto, si es tu primera vez en cerámica (sí o no, obligatorio) y un comentario opcional, y reserva; descarga el .ics.
+2. `/panel`: mira quién viene (con su contacto, si es primera vez y su comentario), anula una reserva (libera el lugar), agrega una sesión (miércoles o sábado) y prueba «Restablecer datos de ejemplo».
 
 ## Pasar de los ejemplos a datos reales
 1. Si hacen falta más fechas, agregalas en «Agregar sesión» (miércoles o sábado).

@@ -132,6 +132,8 @@ function Sesion({ s, d, a, nombreMod, anular }: { s: Sesion; d: Datos; a: Datos[
               <div>
                 <p className="font-medium">{r.nombre}</p>
                 <p className="text-sm text-ink/70">{r.contacto} · {nombreMod(r.modalidad)} · {dinero(r.total)}</p>
+                {r.primeraVez !== undefined ? <p className="text-sm text-ink/70">Primera vez en cerámica: {r.primeraVez ? 'Sí' : 'No'}</p> : null}
+                {r.comentario ? <p className="text-sm italic text-ink/70">«{r.comentario}»</p> : null}
               </div>
               <button className="rounded-lg border border-brand px-3 py-2 text-sm font-medium text-brand hover:bg-accent/30" onClick={() => anular(r.id)} type="button">
                 Anular reserva
